@@ -61,8 +61,17 @@ if (Serial.available()) {
   }
   if (timeStatus()!= timeNotSet) {
     digitalClockDisplay();  
+    if (dAzimuth < 180) {
     myservoAz.write(dAzimuth+posOffsetAz);
     myservoEl.write(dElevation+posOffsetEl);
+    } else {
+    myservoAz.write(dAzimuth+posOffsetAz-180);
+    myservoEl.write((dElevation+posOffsetEl));
+    Serial.print(dAzimuth+posOffsetAz-180);
+    Serial.print(" dAzimuth ");    
+    Serial.print((dElevation+posOffsetEl));
+    Serial.print(" dElavation");
+    }
   }
   if (timeStatus() == timeSet) {
     digitalWrite(13, HIGH); // LED on if synced
